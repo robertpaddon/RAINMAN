@@ -17,9 +17,18 @@ card = cv2.resize(card, dim, interpolation = cv2.INTER_AREA)
 x_offset=y_offset=50
 background[y_offset:y_offset+card.shape[0], x_offset:x_offset+card.shape[1]] = card
 
-# add noise to the image
-background = random_noise(background, mode='gaussian', var=0.05**2)
+# add blur to the image (5,5 max)
+blurimg = cv2.blur(background,(2,2)) 
 
-# show the final image
-cv2.imshow('image',background)
-cv2.waitKey(0)
+# add noise to the image
+noisyimg = random_noise(blurimg, mode='gaussian', var=0.05**2)
+
+
+cv2.imshow('blurred image',noisyimg)
+cv2.waitKey(500)
+input('Quit?')
+cv2.destroyAllWindows()
+cv2.waitKey(1)
+
+
+
